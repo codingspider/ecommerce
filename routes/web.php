@@ -11,19 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-
-    $data['row'] = DB::table('products')
-    ->join('categories', 'categories.id', '=', 'products.category_id')
-    ->join('manufactures', 'manufactures.id', '=', 'products.manufacture_id')
-    ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
-    ->where('products.status', '=',  1)
-    ->get();
-    return view('pages/intro',$data);
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/home', 'HomeController@index');
-
 
 
 //category route
@@ -42,7 +32,12 @@ Route::post('/manufacture/delete/{id}', 'ManufactureController@delete');
 
 //product route
 Route::get('/all/product', 'ProductController@index');
+Route::get('/products/details/{id}', 'ProductController@product_details');
+
+
 Route::get('/unactive_product/{id}', 'ProductController@unactive');
 Route::get('/active_product/{id}', 'ProductController@active');
 Route::post('/product/delete/{id}', 'ProductController@delete');
+Route::get('/show/product/as/category/{id}', 'ProductController@show_product_category');
+
 

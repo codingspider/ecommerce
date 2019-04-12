@@ -83,16 +83,43 @@
 		</div><!-- /.header-top-inner -->
 	</div><!-- /.container -->
 </div><!-- /.header-top -->
+
+<?php 
+ $products= DB::table('products')
+    ->join('categories', 'categories.id', '=', 'products.category_id')
+    ->join('manufactures', 'manufactures.id', '=', 'products.manufacture_id')
+    ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
+    ->where('products.status', '=',  1)
+    ->get();
+?>
+
+
+<?php 
+					
+$hotdeals = DB::table('hot_deals')
+->join('categories', 'categories.id', '=', 'hot_deals.category_id')
+->join('manufactures', 'manufactures.id', '=', 'hot_deals.manufacture_id')
+->select('hot_deals.*', 'manufactures.name as maname', 'categories.name as caname', )
+->where('hot_deals.status', '=',  1)
+->orderBy('created_at', 'desc')
+->paginate(5);
+
+		
+		?>
 <!-- ============================================== TOP MENU : END ============================================== -->
 	<div class="main-header">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
 					<!-- ============================================================= LOGO ============================================================= -->
-<div class="logo">
+<?php 
+$weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'desc')->first();
+
+?>
+					<div class="logo">
 	<a href="{{ URL::to('/home') }}">
 		
-		<img src="assets/images/logo.png" alt="">
+	<img src="{{ $weblogo->images }}"  style="hight: 50px; width:50px" alt="">
 
 	</a>
 </div><!-- /.logo -->
@@ -340,12 +367,12 @@
     <nav class="yamm megamenu-horizontal" role="navigation">
         <ul class="nav">
 
-			@foreach ($categories as $item)
+			@foreach ($categories as $catitem)
 				
 			
 
             <li class="dropdown menu-item">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>{{ $item->name }}</a>
+			<a href="{{ URL::to('/show/product/as/category/'. $catitem->id) }}"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>{{ $catitem->name }}</a>
                  <ul class="dropdown-menu mega-menu">
 			<li class="yamm-content">
 				<div class="row">
@@ -371,13 +398,19 @@
 	<!-- ============================================== HOT DEALS ============================================== -->
 <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
 	<h3 class="section-title">hot deals</h3>
-	<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+
+	
 		
-														<div class="item">
+
+
+	<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+			@foreach ($hotdeals as $item)
+														
+			<div class="item">
 					<div class="products">
 						<div class="hot-deal-wrapper">
 							<div class="image">
-								<img src="assets/images/hot-deals/p25.jpg" alt="">
+							<img src="{{ $item->images }}" style="width: 220px; hight: 100px;" alt="">
 							</div>
 							<div class="sale-offer-tag"><span>49%<br>off</span></div>
 							<div class="timing-wrapper">
@@ -412,7 +445,7 @@
 						</div><!-- /.hot-deal-wrapper -->
 
 						<div class="product-info text-left m-t-20">
-							<h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+							<h3 class="name"><a href="detail.html">{{ $item->name }}</a></h3>
 							<div class="rating rateit-small"></div>
 
 							<div class="product-price">	
@@ -440,147 +473,19 @@
 							</div><!-- /.action -->
 						</div><!-- /.cart -->
 					</div>	
+					</div>	
+					@endforeach	        
+													<div class="item">
+					
 					</div>		        
 													<div class="item">
-					<div class="products">
-						<div class="hot-deal-wrapper">
-							<div class="image">
-								<img src="assets/images/hot-deals/p5.jpg" alt="">
-							</div>
-							<div class="sale-offer-tag"><span>35%<br>off</span></div>
-							<div class="timing-wrapper">
-								<div class="box-wrapper">
-									<div class="date box">
-										<span class="key">120</span>
-										<span class="value">Days</span>
-									</div>
-								</div>
-				                
-				                <div class="box-wrapper">
-									<div class="hour box">
-										<span class="key">20</span>
-										<span class="value">HRS</span>
-									</div>
-								</div>
-
-				                <div class="box-wrapper">
-									<div class="minutes box">
-										<span class="key">36</span>
-										<span class="value">MINS</span>
-									</div>
-								</div>
-
-				                <div class="box-wrapper hidden-md">
-									<div class="seconds box">
-										<span class="key">60</span>
-										<span class="value">SEC</span>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.hot-deal-wrapper -->
-
-						<div class="product-info text-left m-t-20">
-							<h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
-							<div class="rating rateit-small"></div>
-
-							<div class="product-price">	
-								<span class="price">
-									$600.00
-								</span>
-									
-							    <span class="price-before-discount">$800.00</span>					
-							
-							</div><!-- /.product-price -->
-							
-						</div><!-- /.product-info -->
-
-						<div class="cart clearfix animate-effect">
-							<div class="action">
-								
-								<div class="add-cart-button btn-group">
-									<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-										<i class="fa fa-shopping-cart"></i>													
-									</button>
-									<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
-															
-								</div>
-								
-							</div><!-- /.action -->
-						</div><!-- /.cart -->
-					</div>	
-					</div>		        
-													<div class="item">
-					<div class="products">
-						<div class="hot-deal-wrapper">
-							<div class="image">
-								<img src="assets/images/hot-deals/p10.jpg" alt="">
-							</div>
-							<div class="sale-offer-tag"><span>35%<br>off</span></div>
-							<div class="timing-wrapper">
-								<div class="box-wrapper">
-									<div class="date box">
-										<span class="key">120</span>
-										<span class="value">Days</span>
-									</div>
-								</div>
-				                
-				                <div class="box-wrapper">
-									<div class="hour box">
-										<span class="key">20</span>
-										<span class="value">HRS</span>
-									</div>
-								</div>
-
-				                <div class="box-wrapper">
-									<div class="minutes box">
-										<span class="key">36</span>
-										<span class="value">MINS</span>
-									</div>
-								</div>
-
-				                <div class="box-wrapper hidden-md">
-									<div class="seconds box">
-										<span class="key">60</span>
-										<span class="value">SEC</span>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.hot-deal-wrapper -->
-
-						<div class="product-info text-left m-t-20">
-							<h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
-							<div class="rating rateit-small"></div>
-
-							<div class="product-price">	
-								<span class="price">
-									$600.00
-								</span>
-									
-							    <span class="price-before-discount">$800.00</span>					
-							
-							</div><!-- /.product-price -->
-							
-						</div><!-- /.product-info -->
-
-						<div class="cart clearfix animate-effect">
-							<div class="action">
-								
-								<div class="add-cart-button btn-group">
-									<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-										<i class="fa fa-shopping-cart"></i>													
-									</button>
-									<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
-															
-								</div>
-								
-							</div><!-- /.action -->
-						</div><!-- /.cart -->
-					</div>	
+														
 					</div>		        
 						
-	    
+				
     </div><!-- /.sidebar-widget -->
 </div>
+
 <!-- ============================================== HOT DEALS: END ============================================== -->
 <div class="sidebar-widget outer-bottom-small wow fadeInUp">
 	<h3 class="section-title">Special Offer</h3>
@@ -593,7 +498,7 @@
 		        							
 		        		        	</div>
 			</div>
-			@foreach($row as $value)
+			@foreach($products as $value)
 	    		        <div class="item">
 	        	<div class="products special-product">
 		        							
@@ -720,9 +625,6 @@
 		
 			
 
-<div class="home-banner">
-<img src="assets/images/banners/LHS-banner.jpg" alt="Image">
-</div> 
 
 
 
@@ -746,8 +648,20 @@
 		<!-- ============================================== CONTENT : END ============================================== -->
 	</div><!-- /.row -->
 	<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-<div id="brands-carousel" class="logo-slider wow fadeInUp">
 
+	<?php
+	
+	$logos =DB::table('logos')
+	->orderBy('created_at', 'desc')
+	->limit(7)
+	->get();
+	?>
+
+
+
+
+	<div id="brands-carousel" class="logo-slider wow fadeInUp">
+	
 		<div class="logo-slider-inner">	
 			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
 				<div class="item m-t-15">
@@ -761,61 +675,24 @@
 						<img data-echo="" src="assets/images/blank.gif" alt="">
 					</a>	
 				</div><!--/.item-->
-
+				@foreach ($logos as $item)
 				<div class="item">
 					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif" alt="">
+					<img data-echo="{{ $item->images }}" style="hight: 100px; width: 100px;" src="assets/images/blank.gif" alt="">
 					</a>	
 				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
+				@endforeach
+				
 		    </div><!-- /.owl-carousel #logo-slider -->
 		</div><!-- /.logo-slider-inner -->
+		
 	
 </div><!-- /.logo-slider -->
+
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
 	</div><!-- /.container -->
 </div><!-- /#top-banner-and-menu -->
+
 
 
 

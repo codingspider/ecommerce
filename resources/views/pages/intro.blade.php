@@ -124,7 +124,7 @@ $products = DB::table('products')
 ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
 ->where('products.status', '=',  1)
 ->orderBy('created_at', 'desc')
-->paginate(5);
+->paginate(10);
 		
 		?>
 
@@ -141,7 +141,7 @@ $products = DB::table('products')
 		<div class="product">		
 			<div class="product-image">
 				<div class="image">
-				<a href="{{ URL::to('/products/details') }}"><img  src="{{ $item->images }}" style=" height: 180px; " alt=""></a>
+				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ $item->images }}" style=" height: 180px; " alt=""></a>
 				</div><!-- /.image -->			
 	
 										<div class="tag hot"><span>hot</span></div>		   
@@ -164,22 +164,20 @@ $products = DB::table('products')
 						<div class="cart clearfix animate-effect">
 					<div class="action">
 						<ul class="list-unstyled">
-							<li class="add-cart-button btn-group">
-								<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-									<i class="fa fa-shopping-cart"></i>													
-								</button>
-								<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
-														
+							<li class="lnk wishlist">
+								<a class="add-to-cart" href="{{URL::to('/products/add/cart') }}" title="add cart">
+								<i class="fa fa-shopping-cart"></i>													
+								</a>
 							</li>
 						   
 							<li class="lnk wishlist">
-								<a class="add-to-cart" href="detail.html" title="Wishlist">
+								<a class="add-to-cart" href="{{URL::to('/products/add/wishlist') }}" title="Wishlist">
 									 <i class="icon fa fa-heart"></i>
 								</a>
 							</li>
 	
 							<li class="lnk">
-								<a class="add-to-cart" href="detail.html" title="Compare">
+							<a class="add-to-cart" href="{{URL::to('/products/details') }}" title="details">
 									<i class="fa fa-signal" aria-hidden="true"></i>
 								</a>
 							</li>
@@ -235,7 +233,10 @@ $products = DB::table('products')
 				</div><!-- /.home-owl-carousel -->
 	</section><!-- /.section -->
 	<!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
+	<?php
+	$discount = DB::table('discounts')->orderBy('created_at', 'desc')->first();
 
+	?>
 			<!-- ============================================== WIDE PRODUCTS ============================================== -->
 <div class="wide-banners wow fadeInUp outer-bottom-xs">
 		<div class="row">
@@ -243,7 +244,7 @@ $products = DB::table('products')
 			<div class="col-md-12">
 				<div class="wide-banner cnt-strip">
 					<div class="image">
-						<img class="img-responsive" src="assets/images/banners/home-banner.jpg" alt="">
+					<img class="img-responsive" src="{{ $discount->images }}"  alt="">
 					</div>	
 					<div class="strip strip-text">
 						<div class="strip-inner">
@@ -276,7 +277,7 @@ $products = DB::table('products')
 		<div class="product">		
 			<div class="product-image">
 				<div class="image">
-				<a href="{{ URL::to('/products/details') }}"><img  src="{{ $item->images }}" style=" height: 180px; alt=""></a>
+				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ $item->images }}" style=" height: 180px; alt=""></a>
 				</div><!-- /.image -->			
 	
 										<div class="tag new"><span>New</span></div>		   
@@ -292,6 +293,7 @@ $products = DB::table('products')
 					<span class="price">
 							৳{{ $item->price }}			</span>
 												 <span class="price-before-discount"> </span>
+												 
 										
 				</div><!-- /.product-price -->
 				
@@ -299,22 +301,20 @@ $products = DB::table('products')
 						<div class="cart clearfix animate-effect">
 					<div class="action">
 						<ul class="list-unstyled">
-							<li class="add-cart-button btn-group">
-								<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
+							<li class="lnk wishlist">
+								<a class="add-to-cart" href="{{URL::to('/products/add/cart')}}" title="Wishlist">
 									<i class="fa fa-shopping-cart"></i>													
-								</button>
-								<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
-														
+								</a>
 							</li>
 						   
 							<li class="lnk wishlist">
-								<a class="add-to-cart" href="detail.html" title="Wishlist">
+								<a class="add-to-cart" href="{{URL::to('/products/add/wishlist')}}" title="Wishlist">
 									 <i class="icon fa fa-heart"></i>
 								</a>
 							</li>
 	
 							<li class="lnk">
-								<a class="add-to-cart" href="detail.html" title="Compare">
+							<a class="add-to-cart" href="{{URL::to('/products/details')}}" title="Compare">
 									<i class="fa fa-signal" aria-hidden="true"></i>
 								</a>
 							</li>

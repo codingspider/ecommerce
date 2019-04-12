@@ -44,4 +44,29 @@ class ProductController extends Controller
             return redirect::to('/all/product');
         }
     }
+
+
+    public function show_product_category($id){
+        $products= DB::table('products')
+        ->join('categories', 'categories.id', '=', 'products.category_id')
+        ->join('manufactures', 'manufactures.id', '=', 'products.manufacture_id')
+        ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
+        ->where('products.status', '=',  1)
+        ->where('products.category_id', '=',  $id)
+        ->get();
+        return view('pages.show_product_by_category', compact('products'));
+    }
+    public function product_details($id){
+        $products_details= DB::table('products')
+        ->join('categories', 'categories.id', '=', 'products.category_id')
+        ->join('manufactures', 'manufactures.id', '=', 'products.manufacture_id')
+        ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
+        ->where('products.status', '=',  1)
+        ->where('products.id', '=',  $id)
+        ->first();
+
+        return view('pages.show_product_details')->with('products_details', $products_details);
+    }
+
+   
 }
