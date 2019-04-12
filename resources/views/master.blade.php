@@ -26,6 +26,17 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/rateit.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
+		<style> 
+				input[type=button], input[type=submit], input[type=reset] {
+				  background-color: #4CAF50;
+				  border: none;
+				  color: white;
+				  padding: 12px 32px;
+				  text-decoration: none;
+				  margin: 2px 2px;
+				  cursor: pointer;
+				}
+				</style>
 
 		
 
@@ -52,9 +63,29 @@
 				<ul class="list-unstyled">
 					<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
 					<li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-					<li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-					<li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
-					<li><a href="#"><i class="icon fa fa-lock"></i>Login</a></li>
+					<li><a href="{{ URL::to('/show/cart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+
+					<?php
+					$data = Session::get('customer_id');
+					?>
+					@if($data != NULL)
+					<li><a href="{{ URL::to('/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+					@else
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+					@endif
+
+					
+
+
+
+					<?php
+					$data = Session::get('customer_id');
+					?>
+					@if($data != NULL)
+					<li><a href="{{ URL::to('/logout') }}"><i class="icon fa fa-lock"></i>logout</a></li>
+					@else
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-lock"></i>login</a></li>
+					@endif
 				</ul>
 			</div><!-- /.cnt-account -->
 
@@ -173,11 +204,11 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
             <div class="basket">
 					<i class="glyphicon glyphicon-shopping-cart"></i>
 				</div>
-				<div class="basket-item-count"><span class="count">2</span></div>
+			<div class="basket-item-count"><span class="count">{{ Cart::count() }}</span></div>
 				<div class="total-price-basket">
-					<span class="lbl">cart -</span>
+					<span class="lbl">৳{{ Cart::total() }}</span>
 					<span class="total-price">
-						<span class="sign">$</span><span class="value">600.00</span>
+						<span class="sign"></span><span class="value"></span>
 					</span>
 				</div>
 				
@@ -214,7 +245,7 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
 				</div>
 				<div class="clearfix"></div>
 					
-				<a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>	
+				<a href="{{ URL::to('/login/checkout') }}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>	
 			</div><!-- /.cart-total-->
 					
 				

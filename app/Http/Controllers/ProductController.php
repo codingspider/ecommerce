@@ -47,14 +47,14 @@ class ProductController extends Controller
 
 
     public function show_product_category($id){
-        $products= DB::table('products')
+        $data['products']= DB::table('products')
         ->join('categories', 'categories.id', '=', 'products.category_id')
         ->join('manufactures', 'manufactures.id', '=', 'products.manufacture_id')
         ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
         ->where('products.status', '=',  1)
         ->where('products.category_id', '=',  $id)
         ->get();
-        return view('pages.show_product_by_category', compact('products'));
+        return view('pages.show_product_by_category',$data);
     }
     public function product_details($id){
         $products_details= DB::table('products')

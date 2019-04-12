@@ -5,9 +5,7 @@
     
 <!-- ============================================== BEST SELLER ============================================== -->
 
-<?php 
 
-?>
 
 <section class="section featured-product wow fadeInUp">
 		<h3 class="section-title">New products</h3>
@@ -21,7 +19,7 @@
 		<div class="product">		
 			<div class="product-image">
 				<div class="image">
-				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ $item->images }}" style=" height: 180px; width:100px alt=""></a>
+				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{$item->images}}" style=" height: 180px; width:100px alt=""></a>
 				</div><!-- /.image -->			
 	
 										<div class="tag new"><span>New</span></div>		   
@@ -48,7 +46,7 @@
 					<div class="action">
 						<ul class="list-unstyled">
 							<li class="lnk wishlist">
-								<a class="add-to-cart" href="{{URL::to('/products/add/cart')}}" title="Wishlist">
+								<a class="add-to-cart" href="{{ URL::to('/products/details/'. $item->id) }}" title="Wishlist">
 									<i class="fa fa-shopping-cart"></i>													
 								</a>
 							</li>

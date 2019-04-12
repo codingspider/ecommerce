@@ -141,20 +141,25 @@
 									</div>
 									
 									<div class="col-sm-2">
+									<form action="{{ URL::to('/add/to/cart') }}" method="POST">
+											@csrf
 										<div class="cart-quantity">
 											<div class="quant-input">
 								                <div class="arrows">
 								                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
 								                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 								                </div>
-								                <input type="text" value="1">
+								                <input type="text" name="quantity" value="1">
+								                <input type="hidden" name="product_id" value="{{ $products_details->id }}">
 							              </div>
 							            </div>
 									</div>
 
 									<div class="col-sm-7">
-										<a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+										<input type="submit" name="submit" value="Add to Cart" class="fa fa-shopping-cart inner-right-vs">
 									</div>
+
+								</form>
 
 									
 								</div><!-- /.row -->

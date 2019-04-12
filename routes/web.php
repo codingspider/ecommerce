@@ -12,9 +12,8 @@
 */
 
 Route::get('/', 'HomeController@index');
-
 Route::get('/home', 'HomeController@index');
-
+Route::get('/logout', 'HomeController@logout');
 
 //category route
 Route::get('/all/category', 'CategoryController@allcat');
@@ -40,4 +39,15 @@ Route::get('/active_product/{id}', 'ProductController@active');
 Route::post('/product/delete/{id}', 'ProductController@delete');
 Route::get('/show/product/as/category/{id}', 'ProductController@show_product_category');
 
+//add to cart
+Route::post('/add/to/cart', 'CartController@add_to_cart');
+Route::post('/update/cart', 'CartController@update_to_cart');
+Route::get('/delete/cart/prodotucs/{rowId}', 'CartController@delete_to_cart');
+Route::get('/show/cart', 'CartController@showcart');
 
+
+//checkout route
+Route::get('/login/checkout','CheckoutController@logincheckout');
+Route::get('/checkout','CheckoutController@checkout');
+Route::post('/customer/registration','CheckoutController@registrattion');
+Route::post('/shipping/save/details','CheckoutController@save_shipping');
