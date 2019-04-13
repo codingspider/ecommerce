@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use Cart;
 session_start(); 
+
 
 class CheckoutController extends Controller
 {
@@ -33,6 +35,7 @@ class CheckoutController extends Controller
     }
 
     public function checkout(){
+
         return view('pages.checkout');
     }
 
@@ -50,5 +53,81 @@ class CheckoutController extends Controller
         
         Session::put('shiping_id', $shiping_id);
         return redirect::to('/payment/process');
+    }
+
+    public function login(Request $request){
+
+        $customer_email = $request->email;
+        $customer_password = md5($request->password);
+
+        $result = DB::table('customers')
+                ->where('email', $customer_email)
+                ->where('password', $customer_password)
+                ->first();
+
+                if($result){
+
+                    Session::put('customer_id', $result->customer_id);
+                    return redirect::to('/checkout');
+                }else{
+                    return redirect::to('/login/checkout');
+
+                }
+    }
+
+
+    public function payment(){
+
+        // $carts = DB::table('categories')
+        //             ->where('status', '=', 1)
+        //             ->get();
+
+
+        return view('pages.payment_method');
+    }
+
+    
+    public function order_place(Request $request){
+        
+        $payment_method= $request->groupOfMaterialRadios;
+        
+        $data = array();
+        $data['payment_method'] = $payment_method;
+        $data['payment_status'] = 'pending';
+        $payment_id = DB::table('payments')
+        ->insertGetId($data); 
+
+        $odata = array();
+        $odata['customer_id'] = Session::get('customer_id');
+        $odata['shiping_id'] = Session::get('shiping_id');
+        $odata['payment_id'] = $payment_id;
+        $odata['order_total'] = Cart::total();
+        $odata['order_status'] = 'pending';
+
+        $order_id = DB::table('orders')
+        ->insertGetId($odata); 
+
+        $contents = Cart::content();
+
+        $oddata = array();
+        foreach($contents as $v_contents){
+
+            $oddata['order_id'] = $order_id;
+            $oddata['product_id'] = $v_contents->id;
+            $oddata['product_name'] = $v_contents->name;
+            $oddata['product_price'] = $v_contents->price;
+            $oddata['product_quantity'] = $v_contents->qty;
+
+            DB::table('order_details')
+            ->insert($oddata);
+            Cart::destroy();
+    
+        }
+
+     
+        
+
+
+       return view('pages.thankyou');
     }
 }

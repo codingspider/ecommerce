@@ -67,12 +67,17 @@
 
 					<?php
 					$data = Session::get('customer_id');
+					$data_shipping_id = Session::get('shiping_id');
 					?>
-					@if($data != NULL)
+					@if($data != NULL && $data_shipping_id == NULL)
 					<li><a href="{{ URL::to('/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+					@elseif($data != NULL && $data_shipping_id != NULL)
+					<li><a href="{{ URL::to('/payment/process') }}"><i class="icon fa fa-lock"></i>Checkout</a></li>
 					@else
-					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-lock"></i>Checkout</a></li>
 					@endif
+
+
 
 					
 

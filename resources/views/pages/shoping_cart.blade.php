@@ -35,7 +35,7 @@ $data = Cart::content();
 					<td colspan="7">
 						<div class="shopping-cart-btn">
 							<span class="">
-								<a href="#" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
+							<a href="{{ URL::to('/home') }}" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
 								<a href="#" class="btn btn-upper btn-primary pull-right outer-right-xs">Update shopping cart</a>
 							</span>
 						</div><!-- /.shopping-cart-btn -->
@@ -75,9 +75,9 @@ $data = Cart::content();
 												
 												<input type="hidden" name="rowId" value="{{ $item->rowId }}">
 
-					<td class="cart-product-edit"><input type="submit" value="Update" name="submit" class="product-edit"></a></td>
+								<td class="cart-product-edit"><input type="submit" value="Update" name="submit" class="product-edit"></a></td>
 
-												
+						</form>					
 			              </div>
 								</td>
 								<td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ Cart::tax() }}</span></td>
@@ -182,15 +182,19 @@ $data = Cart::content();
 		<tbody>
 				<?php
 					$data = Session::get('customer_id');
+					$data_shipping_id = Session::get('shiping_id');
 					?>
 				<tr>
 					<td>
 						<div class="cart-checkout-btn pull-right">
-								@if($data != NULL)
+						@if($data != NULL && $data_shipping_id == NULL)
 						<a href="{{ URL::to('/checkout') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
-							@else
-						<a href="{{ URL::to('/login/checkout') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
-							@endif
+						@elseif($data != NULL && $data_shipping_id != NULL)
+						<a href="{{ URL::to('/payment/process') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+						@else
+						<a href="{{ URL::to('/checkout') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+					@endif
+
 					</div>
 					</td>
 				</tr>

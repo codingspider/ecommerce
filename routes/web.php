@@ -13,7 +13,6 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
-Route::get('/logout', 'HomeController@logout');
 
 //category route
 Route::get('/all/category', 'CategoryController@allcat');
@@ -51,3 +50,13 @@ Route::get('/login/checkout','CheckoutController@logincheckout');
 Route::get('/checkout','CheckoutController@checkout');
 Route::post('/customer/registration','CheckoutController@registrattion');
 Route::post('/shipping/save/details','CheckoutController@save_shipping');
+
+//login conotroller
+Route::post('/customer/login', 'CheckoutController@login');
+Route::get('/logout', 'HomeController@logout');
+
+
+//payment route
+Route::get('payment/process','CheckoutController@payment' );
+Route::post('ordered/placed','CheckoutController@order_place' );
+

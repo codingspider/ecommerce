@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use DB;
+use Illuminate\Support\Facades\Redirect;
+session_start(); 
 
 class HomeController extends Controller
 {
@@ -17,4 +20,6 @@ class HomeController extends Controller
 
         return view ('pages.intro');
     }
+    
+   
 }

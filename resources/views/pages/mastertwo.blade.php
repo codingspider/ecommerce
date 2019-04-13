@@ -26,6 +26,8 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/rateit.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<style> 
 				input[type=button], input[type=submit], input[type=reset] {
 				  background-color: #4CAF50;
@@ -37,8 +39,23 @@
 				  cursor: pointer;
 				}
 				</style>
-
-		
+			<style>
+					* {
+					  box-sizing: border-box;
+					}
+					
+					.column {
+					  float: left;
+					  padding: 5px;
+					}
+					
+					/* Clearfix (clear floats) */
+					.row::after {
+					  content: "";
+					  clear: both;
+					  display: table;
+					}
+					</style>
 
 		
 		<!-- Icons/Glyphs -->
@@ -54,6 +71,13 @@
     <body class="cnt-home">
 		<!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
+		<?php
+		$data = Session::get('customer_id');
+		$data_shipping_id = Session::get('shiping_id');
+
+		?>
+
+
 
 	<!-- ============================================== TOP MENU ============================================== -->
 <div class="top-bar animate-dropdown">
@@ -63,8 +87,15 @@
 				<ul class="list-unstyled">
 					<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
 					<li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                <li><a href="{{ URL::to('/show/cart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+					<li><a href="{{ URL::to('/show/cart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+					@if($data != NULL && $data_shipping_id == NULL)
+					<li><a href="{{ URL::to('/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
+					@elseif($data != NULL && $data_shipping_id != NULL)
+					<li><a href="{{ URL::to('/payment/process') }}"><i class="icon fa fa-lock"></i>Checkout</a></li>
+					@else
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-lock"></i>Checkout</a></li>
+					@endif
+
 
 					<?php
 					$data = Session::get('customer_id');
@@ -609,6 +640,7 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
     <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('assets/js/wow.min.js') }}"></script>
 	<script src="{{ asset('assets/js/scripts.js') }}"></script>
+
 
 
 
