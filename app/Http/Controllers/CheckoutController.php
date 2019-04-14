@@ -91,6 +91,7 @@ class CheckoutController extends Controller
         
         $payment_method= $request->groupOfMaterialRadios;
         
+        
         $data = array();
         $data['payment_method'] = $payment_method;
         $data['payment_status'] = 'pending';
@@ -103,6 +104,7 @@ class CheckoutController extends Controller
         $odata['payment_id'] = $payment_id;
         $odata['order_total'] = Cart::total();
         $odata['order_status'] = 'pending';
+        $odata['product_id'] =$v_contents->id;
 
         $order_id = DB::table('orders')
         ->insertGetId($odata); 

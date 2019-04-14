@@ -1,15 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
@@ -59,4 +49,12 @@ Route::get('/logout', 'HomeController@logout');
 //payment route
 Route::get('payment/process','CheckoutController@payment' );
 Route::post('ordered/placed','CheckoutController@order_place' );
+
+
+//manage order route
+Route::get('/view/all/order','ManageOrderController@vieworder' );
+Route::post('multi/delete','ManageOrderController@destroy');
+Route::get('/cancel/order/{order_id}', 'ManageOrderController@unactive');
+Route::get('/confirm/order/{order_id}', 'ManageOrderController@active');
+Route::get('/view/order/details/{order_id}', 'ManageOrderController@view_details');
 
