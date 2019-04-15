@@ -123,7 +123,7 @@ $products = DB::table('products')
 ->join('manufactures', 'manufactures.id', '=', 'products.manufacture_id')
 ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
 ->where('products.status', '=',  1)
-->orderBy('created_at', 'desc')
+->orderBy('id', 'desc')
 ->paginate(10);
 		
 		?>
@@ -137,11 +137,10 @@ $products = DB::table('products')
 	<div class="products">
 			@foreach ($products as $item)
 				
-				
 		<div class="product">		
 			<div class="product-image">
 				<div class="image">
-				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ $item->images }}" style=" height: 180px; " alt=""></a>
+				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ URL::asset($item->images) }}" style=" height: 180px; " alt=""></a>
 				</div><!-- /.image -->			
 	
 										<div class="tag hot"><span>hot</span></div>		   
@@ -277,7 +276,7 @@ $products = DB::table('products')
 		<div class="product">		
 			<div class="product-image">
 				<div class="image">
-				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ $item->images }}" style=" height: 180px; alt=""></a>
+				<a href="{{ URL::to('/products/details/'. $item->id) }}"><img  src="{{ URL::asset($item->images) }}" style=" height: 180px; alt=""></a>
 				</div><!-- /.image -->			
 	
 										<div class="tag new"><span>New</span></div>		   

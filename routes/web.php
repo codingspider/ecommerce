@@ -1,5 +1,7 @@
 <?php
-
+if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+    error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+}
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
@@ -21,8 +23,7 @@ Route::post('/manufacture/delete/{id}', 'ManufactureController@delete');
 //product route
 Route::get('/all/product', 'ProductController@index');
 Route::get('/products/details/{id}', 'ProductController@product_details');
-
-
+Route::post('add/new/products', 'ProductController@add_new_products');
 Route::get('/unactive_product/{id}', 'ProductController@unactive');
 Route::get('/active_product/{id}', 'ProductController@active');
 Route::post('/product/delete/{id}', 'ProductController@delete');

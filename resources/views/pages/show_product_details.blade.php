@@ -22,7 +22,7 @@
             <div class="single-product-gallery-item" id="slide1">
             <a data-lightbox="image-1" data-title="Gallery" href="{{ $products_details->images }}">
 											<span class="price-strike">৳{{ $products_details->price }}</span>
-                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="http://bit.do/eN5dz" />
+                    <img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="{{ URL::asset($products_details->images) }}" />
                 </a>
             </div><!-- /.single-product-gallery-item -->
 
@@ -47,18 +47,18 @@
             <div id="owl-single-product-thumbnails">
                 <div class="item">
                     <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
-                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="http://bit.do/eN5dz" />
+                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="{{ URL::asset($products_details->images) }}" />
                     </a>
                 </div>
 
                 <div class="item">
                     <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
-                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="http://bit.do/eN5cH"/>
+                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="{{ URL::asset($products_details->images) }}"/>
                     </a>
                 </div>
                 <div class="item">
                     <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
-                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="http://bit.do/eN47N"/>
+                        <img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="{{ URL::asset($products_details->images) }}"/>
                     </a>
                 </div>
                 

@@ -23,4 +23,5 @@ return array(
     '1374595b22715c0d85ab645d8272fe85' => $vendorDir . '/imanghafoori/laravel-widgetize/src/helpers.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
+    'f18cc91337d49233e5754e93f3ed9ec3' => $vendorDir . '/laravelcollective/html/src/helpers.php',
 );

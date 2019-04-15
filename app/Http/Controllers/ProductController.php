@@ -53,6 +53,7 @@ class ProductController extends Controller
         ->select('products.*', 'manufactures.name as maname', 'categories.name as caname', )
         ->where('products.status', '=',  1)
         ->where('products.category_id', '=',  $id)
+        ->orderBy('id', 'desc')
         ->get();
         return view('pages.show_product_by_category',$data);
     }
@@ -68,5 +69,50 @@ class ProductController extends Controller
         return view('pages.show_product_details')->with('products_details', $products_details);
     }
 
+    public function add_new_products(Request $request){
+
+        request()->validate([
+
+            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+
+  
+
+        $imageName = time().'.'.request()->images->getClientOriginalExtension();
+
+  
+
+        request()->images->move(public_path('images'), $imageName);
+
+
+        $data = array();
+        $data['name'] = $request->name;
+        $data['category_id'] = $request->category;
+        $data['manufacture_id'] = $request->manufacture;
+        $data['description'] = $request->description;
+        $data['short_description'] = $request->short_description;
+        $data['images'] = $imageName;
+        $data['price'] = $request->price;
+        $data['color'] = $request->color;
+        $data['size'] = $request->size;
+        $data['status'] = $request->status;
+
+        DB::table('products')->insert($data);
+
+        return redirect::to('/admin/products');
+
+
+        
+
+  
+
+        
+
+    }
+
+
+    }
+
    
-}
+

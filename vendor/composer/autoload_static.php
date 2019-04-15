@@ -24,6 +24,7 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         '1374595b22715c0d85ab645d8272fe85' => __DIR__ . '/..' . '/imanghafoori/laravel-widgetize/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -144,6 +145,7 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'C' => 
         array (
             'Cron\\' => 5,
+            'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -404,6 +406,10 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -486,6 +492,7 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'App\\Http\\Controllers\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/CheckoutController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\ManageOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManageOrderController.php',
         'App\\Http\\Controllers\\ManufactureController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManufactureController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -495,6 +502,7 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Order' => __DIR__ . '/../..' . '/app/Order.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -515,6 +523,13 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'Cms_privileges_rolesSeeder' => __DIR__ . '/../..' . '/database/seeds/CBSeeder.php',
         'Cms_settingsSeeder' => __DIR__ . '/../..' . '/database/seeds/CBSeeder.php',
         'Cms_usersSeeder' => __DIR__ . '/../..' . '/database/seeds/CBSeeder.php',
+        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
+        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
+        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
+        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
+        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
+        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
+        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',

@@ -192,7 +192,7 @@ $data = Cart::content();
 						@elseif($data != NULL && $data_shipping_id != NULL)
 						<a href="{{ URL::to('/payment/process') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
 						@else
-						<a href="{{ URL::to('/checkout') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+						<a href="{{ URL::to('/login/checkout') }}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
 					@endif
 
 					</div>

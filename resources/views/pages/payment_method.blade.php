@@ -23,7 +23,7 @@
 			</thead><!-- /thead -->
 
 			<?php
-$data = Cart::content();
+                $data = Cart::content();
 
 			?>
 			<tfoot>
@@ -70,6 +70,7 @@ $data = Cart::content();
 	</div>
 </div><!-- /.shopping-cart-table -->	
 <div >
+    
     
         <form method="POST" action="{{ URL::to('ordered/placed') }}">
              @csrf
