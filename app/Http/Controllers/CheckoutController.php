@@ -68,7 +68,7 @@ class CheckoutController extends Controller
                 if($result){
 
                     Session::put('customer_id', $result->customer_id);
-                    return redirect::to('/checkout');
+                    return redirect::to('/home');
                 }else{
                     return redirect::to('/login/checkout');
 

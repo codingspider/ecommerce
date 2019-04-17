@@ -6,7 +6,6 @@ ul {
   
     margin: 0;
   
-    background: #01579B;
   
   }
   
@@ -18,7 +17,6 @@ ul {
   
     float: left;
   
-    background: #01579B;
   
   }
   
@@ -36,9 +34,8 @@ ul {
   
     white-space: nowrap;
   
-    color: rgb(214, 13, 13);
+    color: rgb(189, 230, 78);
   
-    background: #01579B;
   
     -webkit-transition: background-color 0.5s;
   
@@ -90,7 +87,7 @@ ul {
   
   li:hover li { float: none; }
   
-  li:hover a { background: #01579B; }
+  li:hover a { background: rgb(42, 112, 167); }
   
   li:hover li a:hover { background: #E53935; }
   

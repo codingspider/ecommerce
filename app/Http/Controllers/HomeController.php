@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Session;
 use DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Menus;
+
 session_start(); 
 
 class HomeController extends Controller

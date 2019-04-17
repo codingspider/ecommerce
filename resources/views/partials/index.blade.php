@@ -1,14 +1,17 @@
-@if ((is_array($category->children) > 0) AND ($category->parent_id > 0))
 
-    <li><a href="#">{{ $category->name }} <i class="fa fa-chevron-right"></i></a>
+
+
+@if ((count($category->children) > 0) AND ($category->parent_id > 0))
+
+    <li ><a href="{{ $category->url }}">{{ $category->name }}</i></a>
 
 @else
 
-    <li><a href="#">{{ $category->name }}</a>
+    <li><a href="{{ $category->url }}">{{ $category->name }}</a>
 
 @endif
 
-    @if (is_array($category->children) > 0)
+    @if (count($category->children) > 0)
 
         <ul>
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3334269bc22fd963c8042ffb9da8e609",
+    "content-hash": "65ba3e0f2a3e4a7c49e9a42dd0c34e54",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1293,6 +1293,69 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "javcorreia/laravel-wishlist",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/javcorreia/laravel-wishlist.git",
+                "reference": "8e53fa7adb8728256d0bc650fec565c87074a747"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/javcorreia/laravel-wishlist/zipball/8e53fa7adb8728256d0bc650fec565c87074a747",
+                "reference": "8e53fa7adb8728256d0bc650fec565c87074a747",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "illuminate/database": "^5.1",
+                "illuminate/session": "^5.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "javcorreia\\Wishlist\\Providers\\WishlistServiceProvider"
+                    ],
+                    "aliases": {
+                        "Wishlist": "javcorreia\\Wishlist\\Facades\\Wishlist"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "javcorreia\\Wishlist\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bhavin Rudani",
+                    "email": "bhavinrudani94@gmail.com"
+                },
+                {
+                    "name": "José Correia",
+                    "email": "javcorreia@gmail.com"
+                }
+            ],
+            "description": "wishlist for laravel 5.*",
+            "keywords": [
+                "ecommerce laravel wishlist",
+                "laravel",
+                "laravel ecommerce",
+                "laravel wishlist",
+                "wishlist",
+                "wishlist laravel"
+            ],
+            "time": "2019-01-25T20:33:46+00:00"
         },
         {
             "name": "jeremeamia/SuperClosure",

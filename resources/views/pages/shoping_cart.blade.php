@@ -26,6 +26,9 @@
 			<?php
 $data = Cart::content();
 
+$cart = Cart::count();
+
+
 			?>
 			<tfoot>
 				@foreach ($data as $item)
@@ -43,11 +46,15 @@ $data = Cart::content();
 				</tr>
 			</tfoot>
 			<tbody>
+
+				<h1>There is no product in your cart! Please add some products to cart first </h1>
+
+						
 				<tr>
 				<td class="romove-item"><a href="{{ URL::to('/delete/cart/prodotucs/'. $item->rowId) }}" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
 					<td class="cart-image">
 						<a class="entry-thumbnail" href="detail.html">
-						    <img src="{{ $item->options->images }}" alt="">
+						    <img src="{{ URL::asset($item->options->images) }}" style="width:100px; hight:100px;" alt="">
 						</a>
 					</td>
 					<td class="cart-product-name-info">
@@ -69,15 +76,15 @@ $data = Cart::content();
 
 					<td class="cart-product-quantity">
 						<div class="quant-input">
-						<form method="POST" action="{{ URL::to('/update/cart') }}">
-											@csrf
-												<input type="text" name="qty" value="{{ $item->qty }}">
-												
-												<input type="hidden" name="rowId" value="{{ $item->rowId }}">
+		<form method="POST" action="{{ URL::to('/update/cart') }}">
+							@csrf
+								<input type="text" name="qty" value="{{ $item->qty }}">
+								
+								<input type="hidden" name="rowId" value="{{ $item->rowId }}">
 
-								<td class="cart-product-edit"><input type="submit" value="Update" name="submit" class="product-edit"></a></td>
+				<td class="cart-product-edit"><input type="submit" value="Update" name="submit" class="product-edit"></a></td>
 
-						</form>					
+		</form>					
 			              </div>
 								</td>
 								<td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ Cart::tax() }}</span></td>
@@ -85,6 +92,7 @@ $data = Cart::content();
 							<td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ $item->total }}</span></td>
 							
 				</tr>
+				
 				@endforeach
 
 			</tbody><!-- /tbody -->

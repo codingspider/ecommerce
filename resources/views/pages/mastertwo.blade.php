@@ -17,6 +17,8 @@
 		
 		<link rel="shortcut icon" href="https://apache.org/favicons/favicon-194x194.png" type="image/x-icon"/>
  <link rel="icon" href="https://apache.org/favicons/favicon-194x194.png" type="image/ico"/>
+
+ {!! Html::style('css/style.css') !!}
 	    
 	    <!-- Customizable CSS -->
 	    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
@@ -26,8 +28,8 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/rateit.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		
 		<style> 
 				input[type=button], input[type=submit], input[type=reset] {
 				  background-color: #4CAF50;
@@ -39,23 +41,8 @@
 				  cursor: pointer;
 				}
 				</style>
-			<style>
-					* {
-					  box-sizing: border-box;
-					}
-					
-					.column {
-					  float: left;
-					  padding: 5px;
-					}
-					
-					/* Clearfix (clear floats) */
-					.row::after {
-					  content: "";
-					  clear: both;
-					  display: table;
-					}
-					</style>
+
+		
 
 		
 		<!-- Icons/Glyphs -->
@@ -69,15 +56,36 @@
 
 	</head>
     <body class="cnt-home">
+
+		@php
+
+				use App\Menus;
+
+
+			$Menu =new Menus;
+
+        
+
+        try {
+
+            $categories=$Menu->tree();
+
+            
+
+        } catch (Exception $e) {
+
+            
+
+            //no parent category found
+
+		}
+		
+		
+
+
+		@endphp
 		<!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
-		<?php
-		$data = Session::get('customer_id');
-		$data_shipping_id = Session::get('shiping_id');
-
-		?>
-
-
 
 	<!-- ============================================== TOP MENU ============================================== -->
 <div class="top-bar animate-dropdown">
@@ -86,8 +94,19 @@
 			<div class="cnt-account">
 				<ul class="list-unstyled">
 					<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-					<li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+
+					@if( Cart::count() > 0)
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-heart"></i> {{ Cart::count() }} Wishlist</a></li>
+					@else 
+					<li><a href="{{ URL::to('/wishlist') }}"><i class="icon fa fa-heart"></i> {{ Cart::count() }} Wishlist</a></li>
+					@endif 
+
 					<li><a href="{{ URL::to('/show/cart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+
+					<?php
+					$data = Session::get('customer_id');
+					$data_shipping_id = Session::get('shiping_id');
+					?>
 					@if($data != NULL && $data_shipping_id == NULL)
 					<li><a href="{{ URL::to('/checkout') }}"><i class="icon fa fa-check"></i>Checkout</a></li>
 					@elseif($data != NULL && $data_shipping_id != NULL)
@@ -95,6 +114,11 @@
 					@else
 					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-lock"></i>Checkout</a></li>
 					@endif
+
+
+
+					
+
 
 
 					<?php
@@ -105,31 +129,10 @@
 					@else
 					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-lock"></i>login</a></li>
 					@endif
-
 				</ul>
 			</div><!-- /.cnt-account -->
 
-			<div class="cnt-block">
-				<ul class="list-unstyled list-inline">
-					<li class="dropdown dropdown-small">
-						<a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">USD</a></li>
-							<li><a href="#">INR</a></li>
-							<li><a href="#">GBP</a></li>
-						</ul>
-					</li>
 
-					<li class="dropdown dropdown-small">
-						<a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">English</a></li>
-							<li><a href="#">French</a></li>
-							<li><a href="#">German</a></li>
-						</ul>
-					</li>
-				</ul><!-- /.list-unstyled -->
-			</div><!-- /.cnt-cart -->
 			<div class="clearfix"></div>
 		</div><!-- /.header-top-inner -->
 	</div><!-- /.container -->
@@ -179,32 +182,15 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
 				<div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
 					<!-- /.contact-row -->
 
-					@php
-					$categories = DB::table('categories')->where('status', 1)
-					
-					->get();	
-
-					@endphp
+@php
+	$cat_by_id = DB::table('categories')->where('status', 1)->get();
+@endphp
 <!-- ============================================================= SEARCH AREA ============================================================= -->
 <div class="search-area">
     <form>
         <div class="control-group">
 
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="#">Categories <b class="caret"></b></a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        @foreach ($categories as $item)
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{ $item->name }}</a></li>
-
-					
-						@endforeach
-                    </ul>   
-                    
-                </li>
-            </ul>
+            
 
             <input class="search-field" placeholder="Search here..." />
 
@@ -224,11 +210,11 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
             <div class="basket">
 					<i class="glyphicon glyphicon-shopping-cart"></i>
 				</div>
-				<div class="basket-item-count"><span class="count">{{ Cart::count() }}</span></div>
+			<div class="basket-item-count"><span class="count">{{ Cart::count() }}</span></div>
 				<div class="total-price-basket">
 					<span class="lbl">৳{{ Cart::total() }}</span>
 					<span class="total-price">
-						<span class="sign">$</span><span class="value"></span>
+						<span class="sign"></span><span class="value"></span>
 					</span>
 				</div>
 				
@@ -293,108 +279,37 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
                 </button>
             </div>
             <div class="nav-bg-class">
-                <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
-	<div class="nav-outer">
-		<ul class="nav navbar-nav">
-			<li class="active dropdown yamm-fw">
-			 <a href="{{ URL::to('/home') }}" >Home</a>
-				 
-			</li>
-			<li class="dropdown yamm mega-menu">
-				<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
-                <ul class="dropdown-menu container">
-					<li>
-               						<div class="yamm-content ">
-            <div class="row">
-                
-                   <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                        <h2 class="title">Men</h2>
-                        <ul class="links">
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Shoes </a></li>
-                            <li><a href="#">Jackets</a></li>
-                            <li><a href="#">Sunglasses</a></li>
-                            <li><a href="#">Sport Wear</a></li>
-                             <li><a href="#">Blazers</a></li>
-                              <li><a href="#">Shirts</a></li>
-                          
-                        </ul>
-                    </div><!-- /.col -->         
-    					
-</div>
-</div>
 
-</li>
-				</ul>
+					<div class="main_menu_area hidden-xs light-blue darken-4 ">
+
+							<div class="container">
 				
-			</li>
-
-			<li class="dropdown mega-menu">
-				<a href="category.html"  data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Electronics
-				   <span class="menu-label hot-menu hidden-xs">hot</span>
-				</a>
-                <ul class="dropdown-menu container">
-					<li>
-						<div class="yamm-content">
-    <div class="row">
-       
-
-         
-
-            <div class="col-xs-12 col-sm-12 col-md-2 col-menu">
-                <h2 class="title">Cameras</h2>
-                <ul class="links">
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Binoculars</a></li>
-                    <li><a href="#">Telescopes</a></li>
-                    <li><a href="#">Camcorders</a></li>
-                    <li><a href="#">Digital</a></li>
-                     <li><a href="#">Film Cameras</a></li>
-                     <li><a href="#">Flashes</a></li>
-                     <li><a href="#">Lenses</a></li>
-                     <li><a href="#">Surveillance</a></li>
-                      <li><a href="#">Tripods</a></li>
-                     
-                </ul>
-            </div><!-- /.col -->
-         
-    </div><!-- /.row -->
-</div><!-- /.yamm-content -->					</li>
-				</ul>
-			</li>
-			<li class="dropdown hidden-sm">
+								<div class="row">
 				
-				<a href="category.html">Health & Beauty
-				    <span class="menu-label new-menu hidden-xs">new</span>
-				</a>
-			</li>
-
-			<li class="dropdown hidden-sm">
-				<a href="category.html">Watches</a>
-			</li>
-
-			<li class="dropdown">
-				<a href="contact.html">Jewellery</a>
-			</li>
-            
-            <li class="dropdown">
-				<a href="contact.html">Shoes</a>
-			</li>
-            <li class="dropdown">
-				<a href="contact.html">Kids & Girls</a>
-			</li>
-			
-		
-             <li class="dropdown  navbar-right special-menu">
-				<a href="#">Todays offer</a>
-			</li>
-					
-			
-		</ul><!-- /.navbar-nav -->
-		<div class="clearfix"></div>				
-	</div><!-- /.nav-outer -->
-</div><!-- /.navbar-collapse -->
-
+									<div class="col-md-12">
+				
+										<div class="mainnmenu">
+				
+											<nav>
+				
+												<ul class="main-nagivation">
+														<li><a href="{{URL::to('/home')}}">Home</a></li>
+				
+												@each('partials.index', $categories, 'category')
+				
+												</ul>
+				
+											</nav>
+				
+										</div>
+				
+									</div>
+				
+								</div>
+				
+							</div>
+				
+						</div>
 
             </div><!-- /.nav-bg-class -->
         </div><!-- /.navbar-default -->
@@ -405,87 +320,12 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
 
 </header>
 
-<!-- ============================================== HEADER : END ============================================== -->
-<div class="body-content outer-top-xs" id="top-banner-and-menu">
-	<div class="container">
-	<div class="row">
-	
+<br>
+<br>
 
+@yield('content')
 
-
-			
-
-
-
-
-
-		</div><!-- /.sidemenu-holder -->
-		<!-- ============================================== SIDEBAR : END ============================================== -->
-
-		<!-- ============================================== CONTENT ============================================== -->
-		<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
-            <!-- ========================================== SECTION – HERO ========================================= -->
-            
-            
-			
-
-			@yield('content')
-
-	
-
-
-		</div><!-- /.homebanner-holder -->
-		<!-- ============================================== CONTENT : END ============================================== -->
-	</div><!-- /.row -->
-	<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-
-	<?php
-	
-	$logos =DB::table('logos')
-	->orderBy('created_at', 'desc')
-	->limit(7)
-	->get();
-	?>
-
-
-
-
-	<div id="brands-carousel" class="logo-slider wow fadeInUp">
-	
-		<div class="logo-slider-inner">	
-			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-				<div class="item m-t-15">
-					<a href="#" class="image">
-						<img data-echo="" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-
-				<div class="item m-t-10">
-					<a href="#" class="image">
-						<img data-echo="" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-				@foreach ($logos as $item)
-				<div class="item">
-					<a href="#" class="image">
-					<img data-echo="{{ $item->images }}" style="hight: 100px; width: 100px;" src="assets/images/blank.gif" alt="">
-					</a>	
-				</div><!--/.item-->
-				@endforeach
-				
-		    </div><!-- /.owl-carousel #logo-slider -->
-		</div><!-- /.logo-slider-inner -->
-		
-	
-</div><!-- /.logo-slider -->
-
-<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
-	</div><!-- /.container -->
-</div><!-- /#top-banner-and-menu -->
-
-
-
-
+</div>
 
 <!-- ============================================================= FOOTER ============================================================= -->
 <footer id="footer" class="footer color-bg">
@@ -640,7 +480,6 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
     <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('assets/js/wow.min.js') }}"></script>
 	<script src="{{ asset('assets/js/scripts.js') }}"></script>
-
 
 
 

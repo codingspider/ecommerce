@@ -170,7 +170,7 @@ $products = DB::table('products')
 							</li>
 						   
 							<li class="lnk wishlist">
-								<a class="add-to-cart" href="{{URL::to('/products/add/wishlist') }}" title="Wishlist">
+								<a class="add-to-cart" href="{{ URL::to('/products/details/'. $item->id) }}" title="Wishlist">
 									 <i class="icon fa fa-heart"></i>
 								</a>
 							</li>
@@ -307,7 +307,7 @@ $products = DB::table('products')
 							</li>
 						   
 							<li class="lnk wishlist">
-								<a class="add-to-cart" href="{{URL::to('/products/add/wishlist')}}" title="Wishlist">
+								<a class="add-to-cart" href="{{ URL::to('/products/details/'. $item->id) }}" title="Wishlist">
 									 <i class="icon fa fa-heart"></i>
 								</a>
 							</li>

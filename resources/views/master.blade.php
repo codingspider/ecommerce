@@ -17,6 +17,8 @@
 		
 		<link rel="shortcut icon" href="https://apache.org/favicons/favicon-194x194.png" type="image/x-icon"/>
  <link rel="icon" href="https://apache.org/favicons/favicon-194x194.png" type="image/ico"/>
+
+ {!! Html::style('css/style.css') !!}
 	    
 	    <!-- Customizable CSS -->
 	    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
@@ -26,6 +28,8 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/rateit.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
+
+		
 		<style> 
 				input[type=button], input[type=submit], input[type=reset] {
 				  background-color: #4CAF50;
@@ -52,8 +56,42 @@
 
 	</head>
     <body class="cnt-home">
+
+		@php
+
+				use App\Menus;
+
+
+			$Menu =new Menus;
+
+        
+
+        try {
+
+            $categories=$Menu->tree();
+
+            
+
+        } catch (Exception $e) {
+
+            
+
+            //no parent category found
+
+		}
+		
+		
+
+
+		@endphp
 		<!-- ============================================== HEADER ============================================== -->
-<header class="header-style-1">
+		<header class="header-style-1">
+		<?php
+		$data = Session::get('customer_id');
+
+		$wishlist=  Cart::instance('wishlist')->count();
+		
+		?>
 
 	<!-- ============================================== TOP MENU ============================================== -->
 <div class="top-bar animate-dropdown">
@@ -62,7 +100,15 @@
 			<div class="cnt-account">
 				<ul class="list-unstyled">
 					<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-					<li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+
+					@if ( Cart::count() > 0)
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-heart"></i> {{ Cart::count() }} Wishlist</a></li>
+					@else 
+					<li><a href="{{ URL::to('/wishlist') }}"><i class="icon fa fa-heart"></i> {{ Cart::count() }} Wishlist</a></li>
+					@endif 
+
+
+
 					<li><a href="{{ URL::to('/show/cart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
 
 					<?php
@@ -94,27 +140,7 @@
 				</ul>
 			</div><!-- /.cnt-account -->
 
-			<div class="cnt-block">
-				<ul class="list-unstyled list-inline">
-					<li class="dropdown dropdown-small">
-						<a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">USD</a></li>
-							<li><a href="#">INR</a></li>
-							<li><a href="#">GBP</a></li>
-						</ul>
-					</li>
 
-					<li class="dropdown dropdown-small">
-						<a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">English</a></li>
-							<li><a href="#">French</a></li>
-							<li><a href="#">German</a></li>
-						</ul>
-					</li>
-				</ul><!-- /.list-unstyled -->
-			</div><!-- /.cnt-cart -->
 			<div class="clearfix"></div>
 		</div><!-- /.header-top-inner -->
 	</div><!-- /.container -->
@@ -165,7 +191,7 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
 					<!-- /.contact-row -->
 
 					@php
-					$categories = DB::table('categories')->where('status', 1)
+					$cat_gory = DB::table('categories')->where('status', 1)
 					
 					->get();	
 
@@ -175,21 +201,7 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
     <form>
         <div class="control-group">
 
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="#">Categories <b class="caret"></b></a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        @foreach ($categories as $item)
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{ $item->name }}</a></li>
-
-					
-						@endforeach
-                    </ul>   
-                    
-                </li>
-            </ul>
+         
 
             <input class="search-field" placeholder="Search here..." />
 
@@ -278,108 +290,37 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
                 </button>
             </div>
             <div class="nav-bg-class">
-                <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
-	<div class="nav-outer">
-		<ul class="nav navbar-nav">
-			<li class="active dropdown yamm-fw">
-			 <a href="{{ URL::to('/home') }}" >Home</a>
-				 
-			</li>
-			<li class="dropdown yamm mega-menu">
-				<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
-                <ul class="dropdown-menu container">
-					<li>
-               						<div class="yamm-content ">
-            <div class="row">
-                
-                   <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                        <h2 class="title">Men</h2>
-                        <ul class="links">
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Shoes </a></li>
-                            <li><a href="#">Jackets</a></li>
-                            <li><a href="#">Sunglasses</a></li>
-                            <li><a href="#">Sport Wear</a></li>
-                             <li><a href="#">Blazers</a></li>
-                              <li><a href="#">Shirts</a></li>
-                          
-                        </ul>
-                    </div><!-- /.col -->         
-    					
-</div>
-</div>
 
-</li>
-				</ul>
+					<div class="main_menu_area hidden-xs light-blue darken-4 ">
+
+							<div class="container">
 				
-			</li>
-
-			<li class="dropdown mega-menu">
-				<a href="category.html"  data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Electronics
-				   <span class="menu-label hot-menu hidden-xs">hot</span>
-				</a>
-                <ul class="dropdown-menu container">
-					<li>
-						<div class="yamm-content">
-    <div class="row">
-       
-
-         
-
-            <div class="col-xs-12 col-sm-12 col-md-2 col-menu">
-                <h2 class="title">Cameras</h2>
-                <ul class="links">
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Binoculars</a></li>
-                    <li><a href="#">Telescopes</a></li>
-                    <li><a href="#">Camcorders</a></li>
-                    <li><a href="#">Digital</a></li>
-                     <li><a href="#">Film Cameras</a></li>
-                     <li><a href="#">Flashes</a></li>
-                     <li><a href="#">Lenses</a></li>
-                     <li><a href="#">Surveillance</a></li>
-                      <li><a href="#">Tripods</a></li>
-                     
-                </ul>
-            </div><!-- /.col -->
-         
-    </div><!-- /.row -->
-</div><!-- /.yamm-content -->					</li>
-				</ul>
-			</li>
-			<li class="dropdown hidden-sm">
+								<div class="row">
 				
-				<a href="category.html">Health & Beauty
-				    <span class="menu-label new-menu hidden-xs">new</span>
-				</a>
-			</li>
-
-			<li class="dropdown hidden-sm">
-				<a href="category.html">Watches</a>
-			</li>
-
-			<li class="dropdown">
-				<a href="contact.html">Jewellery</a>
-			</li>
-            
-            <li class="dropdown">
-				<a href="contact.html">Shoes</a>
-			</li>
-            <li class="dropdown">
-				<a href="contact.html">Kids & Girls</a>
-			</li>
-			
-		
-             <li class="dropdown  navbar-right special-menu">
-				<a href="#">Todays offer</a>
-			</li>
-					
-			
-		</ul><!-- /.navbar-nav -->
-		<div class="clearfix"></div>				
-	</div><!-- /.nav-outer -->
-</div><!-- /.navbar-collapse -->
-
+									<div class="col-md-12">
+				
+										<div class="mainnmenu">
+				
+											<nav>
+				
+												<ul class="main-nagivation">
+												<li><a href="{{URL::to('/home')}}">Home</a></li>
+				
+												@each('partials.index', $categories, 'category')
+				
+												</ul>
+				
+											</nav>
+				
+										</div>
+				
+									</div>
+				
+								</div>
+				
+							</div>
+				
+						</div>
 
             </div><!-- /.nav-bg-class -->
         </div><!-- /.navbar-default -->
@@ -390,6 +331,11 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
 
 </header>
 
+<br>
+<br>
+@php
+	$cat_by_id = DB::table('categories')->where('status', 1)->get();
+@endphp
 <!-- ============================================== HEADER : END ============================================== -->
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
 	<div class="container">
@@ -403,22 +349,13 @@ $weblogo = DB::table('web_logos')->where('status', 1)->orderBy('created_at', 'de
     <nav class="yamm megamenu-horizontal" role="navigation">
         <ul class="nav">
 
-			@foreach ($categories as $catitem)
+			@foreach ($cat_by_id as $catitem)
 				
 			
 
             <li class="dropdown menu-item">
 			<a href="{{ URL::to('/show/product/as/category/'. $catitem->id) }}"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>{{ $catitem->name }}</a>
-                 <ul class="dropdown-menu mega-menu">
-			<li class="yamm-content">
-				<div class="row">
-					<div class="col-sm-12 col-md-3">
-					
-					</div><!-- /.col -->
-			
-				</div><!-- /.row -->
-			</li><!-- /.yamm-content -->                    
-		</ul><!-- /.dropdown-menu -->          
+                     
 		</li><!-- /.menu-item -->
 @endforeach
          

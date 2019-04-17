@@ -32,6 +32,10 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'j' => 
+        array (
+            'javcorreia\\Wishlist\\' => 20,
+        ),
         'c' => 
         array (
             'crocodicstudio\\crudbooster\\' => 27,
@@ -164,6 +168,10 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'javcorreia\\Wishlist\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/javcorreia/laravel-wishlist/src',
         ),
         'crocodicstudio\\crudbooster\\' => 
         array (
@@ -492,9 +500,12 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'App\\Http\\Controllers\\CheckoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/CheckoutController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\MainMenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/MainMenuController.php',
         'App\\Http\\Controllers\\ManageOrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManageOrderController.php',
         'App\\Http\\Controllers\\ManufactureController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManufactureController.php',
+        'App\\Http\\Controllers\\MenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/MenuController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
+        'App\\Http\\Controllers\\SubMenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubMenuController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -502,7 +513,9 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Menus' => __DIR__ . '/../..' . '/app/Menus.php',
         'App\\Order' => __DIR__ . '/../..' . '/app/Order.php',
+        'App\\Product' => __DIR__ . '/../..' . '/app/Product.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -4880,6 +4893,9 @@ class ComposerStaticInit0d95bc5daf11ca2cb17d0de6736b72c2
         'crocodicstudio\\crudbooster\\helpers\\CRUDBooster' => __DIR__ . '/..' . '/crocodicstudio/crudbooster/src/helpers/CRUDBooster.php',
         'crocodicstudio\\crudbooster\\middlewares\\CBAuthAPI' => __DIR__ . '/..' . '/crocodicstudio/crudbooster/src/middlewares/CBAuthAPI.php',
         'crocodicstudio\\crudbooster\\middlewares\\CBBackend' => __DIR__ . '/..' . '/crocodicstudio/crudbooster/src/middlewares/CBBackend.php',
+        'javcorreia\\Wishlist\\Models\\Wishlist' => __DIR__ . '/..' . '/javcorreia/laravel-wishlist/src/Models/Wishlist.php',
+        'javcorreia\\Wishlist\\Providers\\WishlistServiceProvider' => __DIR__ . '/..' . '/javcorreia/laravel-wishlist/src/Providers/WishlistServiceProvider.php',
+        'javcorreia\\Wishlist\\Wishlist' => __DIR__ . '/..' . '/javcorreia/laravel-wishlist/src/Wishlist.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

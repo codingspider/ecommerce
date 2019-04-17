@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         crocodicstudio\crudbooster\CRUDBoosterServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        javcorreia\Wishlist\Providers\WishlistServiceProvider::class,
 
     ],
 
@@ -213,6 +214,7 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        
 
     ],
 

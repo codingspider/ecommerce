@@ -32,6 +32,9 @@ Route::get('/show/product/as/category/{id}', 'ProductController@show_product_cat
 //add to cart
 Route::post('/add/to/cart', 'CartController@add_to_cart');
 Route::post('/update/cart', 'CartController@update_to_cart');
+Route::get('/wishlist/view/{id}', 'CartController@wishlist');
+
+
 Route::get('/delete/cart/prodotucs/{rowId}', 'CartController@delete_to_cart');
 Route::get('/show/cart', 'CartController@showcart');
 
@@ -59,3 +62,18 @@ Route::get('/cancel/order/{order_id}', 'ManageOrderController@unactive');
 Route::get('/confirm/order/{order_id}', 'ManageOrderController@active');
 Route::get('/view/order/details/{order_id}', 'ManageOrderController@view_details');
 
+//menu controller
+
+Route::get('/menus', 'MainMenuController@index');
+Route::post('/add/main/menu', 'MainMenuController@store');
+
+
+Route::get('/add/sub/menu', 'MainMenuController@create');
+Route::get('/add/sub/menu', 'MainMenuController@storemenu');
+
+Route::get('/add/sub/menu', 'SubMenuController@index');
+Route::post('/add/sub/menu', 'SubMenuController@storemenu');
+
+
+//wishlist route
+Route::get('/show/wishlist', 'WishlistController@view');
