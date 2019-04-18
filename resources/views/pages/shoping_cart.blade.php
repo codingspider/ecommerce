@@ -47,7 +47,6 @@ $cart = Cart::count();
 			</tfoot>
 			<tbody>
 
-				<h1>There is no product in your cart! Please add some products to cart first </h1>
 
 						
 				<tr>

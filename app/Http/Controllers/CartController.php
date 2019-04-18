@@ -80,4 +80,19 @@ class CartController extends Controller
          return redirect::to('/show/wishlist');
 
     }
+
+    public function wishlist_add_to_cart(Request $request){ 
+        
+        $id =  $request->rowId;
+        $productinfo = DB::table('products')
+                     ->where('id', $id)
+                     ->first();
+
+ 
+    
+
+        Cart::instance('wishlist')->remove($id);
+
+        return view('pages.show_product_details');
+    }
 }

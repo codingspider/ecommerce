@@ -33,6 +33,7 @@ Route::get('/show/product/as/category/{id}', 'ProductController@show_product_cat
 Route::post('/add/to/cart', 'CartController@add_to_cart');
 Route::post('/update/cart', 'CartController@update_to_cart');
 Route::get('/wishlist/view/{id}', 'CartController@wishlist');
+Route::post('/switch/to/cart/', 'CartController@wishlist_add_to_cart');
 
 
 Route::get('/delete/cart/prodotucs/{rowId}', 'CartController@delete_to_cart');

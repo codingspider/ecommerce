@@ -95,10 +95,12 @@
 				<ul class="list-unstyled">
 					<li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
 
-					@if( Cart::count() > 0)
-					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-heart"></i> {{ Cart::count() }} Wishlist</a></li>
-					@else 
-					<li><a href="{{ URL::to('/wishlist') }}"><i class="icon fa fa-heart"></i> {{ Cart::count() }} Wishlist</a></li>
+					@if($data != NULL && $wishlist == NULL)
+					<li><a href="{{ URL::to('/home') }}"><i class="icon fa fa-heart"></i> {{ Cart::instance('wishlist')->count() }} Wishlist</a></li>
+					@elseif($data != NULL && $wishlist !== NULL)
+					<li><a href="{{ URL::to('/show/wishlist') }}"><i class="icon fa fa-heart"></i> {{ Cart::instance('wishlist')->count() }} Wishlist</a></li>
+					@else
+					<li><a href="{{ URL::to('/login/checkout') }}"><i class="icon fa fa-heart"></i> {{ Cart::instance('wishlist')->count() }} Wishlist</a></li>
 					@endif 
 
 					<li><a href="{{ URL::to('/show/cart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
